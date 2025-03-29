@@ -11,8 +11,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useLoginForm } from "./hooks/use-login-form";
 import Link from "next/link";
+import type { LoginProps } from "./login.types";
 
-export function Login({ className, ...props }: React.ComponentProps<"div">) {
+export function Login({ className, ...props }: LoginProps) {
   const { errors, handleSubmit, isLoading, onSubmit, register } =
     useLoginForm();
 

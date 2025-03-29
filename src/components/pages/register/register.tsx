@@ -11,8 +11,9 @@ import { Label } from "@radix-ui/react-label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import type { RegisterProps } from "./register.types";
 
-export function Register({ className, ...props }: React.ComponentProps<"div">) {
+export function Register({ className, ...props }: RegisterProps) {
   const { errors, handleSubmit, isLoading, onSubmit, register } =
     useRegisterForm();
 

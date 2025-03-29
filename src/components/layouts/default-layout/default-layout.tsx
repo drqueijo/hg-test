@@ -1,11 +1,12 @@
 import { cn } from "@/lib/utils";
 import { ThemeSwitch } from "@/components/ui/theme-switch";
+import type { DefaultLayoutProps } from "./default-layout.types";
 
 export function DefaultLayout({
   className,
   children,
   ...props
-}: React.ComponentProps<"main">) {
+}: DefaultLayoutProps) {
   return (
     <main
       className={cn(
@@ -15,7 +16,9 @@ export function DefaultLayout({
       {...props}
     >
       {children}
-      <ThemeSwitch />
+      <div className="absolute top-2 right-2">
+        <ThemeSwitch />
+      </div>
     </main>
   );
 }
