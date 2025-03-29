@@ -8,14 +8,10 @@ import {
 } from "react";
 import { useRouter } from "next/router";
 import type { User } from "@/types/user/user.types";
-import { env } from "@/env";
 import { toast } from "sonner";
 import type { AuthContextType } from "@/types/auth/auth.types";
 import { setValue, getValue, removeValue } from "@/lib/local-storage";
-
-const { NEXT_PUBLIC_SESSION_DURATION } = env;
-
-const SESSION_DURATION = 60 * 60 * 1000;
+import { getSessionDuration } from "@/lib/get-session-duration";
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 
@@ -27,11 +23,12 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
+  const SESSION_DURATION = getSessionDuration();
 
-  const refreshSession = () => {
+  const refreshSession = useCallback(() => {
     const expirationTime = Date.now() + SESSION_DURATION;
     setValue("session_expires", expirationTime.toString());
-  };
+  }, [SESSION_DURATION]);
 
   const handleLogout = useCallback(() => {
     setUser(null);
@@ -77,7 +74,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     const intervalId = setInterval(checkAuth, 60 * 1000); // Check every minute
 
     return () => clearInterval(intervalId);
-  }, [router, handleLogout]);
+  }, [router, handleLogout, refreshSession]);
 
   const getUsersFromStorage = useCallback((): User[] => {
     const usersJson = getValue("users");
@@ -111,7 +108,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
         setIsLoading(false);
       }
     },
-    [getUsersFromStorage, router],
+    [getUsersFromStorage, refreshSession, router],
   );
 
   const register = useCallback(

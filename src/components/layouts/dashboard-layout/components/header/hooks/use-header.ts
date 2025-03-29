@@ -1,4 +1,4 @@
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/auth-contenxt";
 
 export function useHeader() {
   const { user, logout } = useAuth();

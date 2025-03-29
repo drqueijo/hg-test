@@ -2,7 +2,7 @@ import { type AppType } from "next/app";
 import { api } from "@/utils/api";
 import "@/styles/globals.css";
 import { ThemeProvider } from "next-themes";
-import { AuthProvider } from "@/contexts/AuthContext";
+import { AuthProvider } from "@/contexts/auth-contenxt";
 import { Toaster } from "@/components/ui/sonner";
 
 const MyApp: AppType = ({ Component, pageProps }) => {

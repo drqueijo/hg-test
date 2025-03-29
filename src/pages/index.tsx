@@ -1,4 +1,6 @@
 import { DashboardLayout } from "@/components/layouts/dashboard-layout";
+import { Dashboard } from "@/components/pages/dashboard/dashboard";
+import { DashboardProvider } from "@/contexts/dashboard-context";
 import { api } from "@/utils/api";
 
 export default function Home() {
@@ -6,7 +8,9 @@ export default function Home() {
 
   return (
     <DashboardLayout>
-      <div>Hello</div>
+      <DashboardProvider>
+        <Dashboard />
+      </DashboardProvider>
     </DashboardLayout>
   );
 }

@@ -1,6 +1,6 @@
 import { useEffect, type ComponentType } from "react";
 import { useRouter } from "next/router";
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/auth-contenxt";
 import { PUBLIC_ROUTES } from "@/constants/routes";
 
 /**

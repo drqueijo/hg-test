@@ -12,7 +12,7 @@ export function DashboardLayout({
       <Header />
       <main
         className={cn(
-          "flex min-h-full w-full items-center justify-center p-6 md:p-10",
+          "container m-auto flex min-h-full items-center justify-center px-4 py-10 md:px-0",
           className,
         )}
         {...props}

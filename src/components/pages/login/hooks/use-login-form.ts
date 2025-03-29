@@ -1,4 +1,4 @@
-import { useAuth } from "@/contexts/AuthContext";
+import { useAuth } from "@/contexts/auth-contenxt";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   loginUserUseCase,
