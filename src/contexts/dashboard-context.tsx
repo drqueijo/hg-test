@@ -1,8 +1,9 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import type { DashboardContextType } from "@/types/dashboard/dashboard.types";
 import { DashboardTabs } from "@/types/dashboard/dashboard.enums";
+import { api } from "@/utils/api";
 
 const DashboardContext = createContext<DashboardContextType>(
   {} as DashboardContextType,
@@ -16,6 +17,7 @@ export function DashboardProvider({ children }: DashboardProviderProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const { data, isLoading, isError } = api.finance.getAllData.useQuery();
 
   const currentTab = useMemo(() => {
     return (
@@ -48,6 +50,9 @@ export function DashboardProvider({ children }: DashboardProviderProps) {
     <DashboardContext.Provider
       value={{
         ...currentTabValue,
+        data,
+        isLoading,
+        isError,
       }}
     >
       {children}

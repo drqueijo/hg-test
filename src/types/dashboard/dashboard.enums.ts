@@ -2,5 +2,6 @@ export enum DashboardTabs {
   currencies = "currencies",
   stocks = "stocks",
   bitcoin = "bitcoin",
-  taxes = "taxes",
 }
+
+export const DashboardTabsList = Object.values(DashboardTabs);

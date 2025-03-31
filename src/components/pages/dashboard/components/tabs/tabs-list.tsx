@@ -8,7 +8,6 @@ export function TabsList({ ...props }: TabsProps) {
       <TabsTrigger value={DashboardTabs.currencies}>Currencies</TabsTrigger>
       <TabsTrigger value={DashboardTabs.stocks}>Stocks</TabsTrigger>
       <TabsTrigger value={DashboardTabs.bitcoin}>Bitcoin</TabsTrigger>
-      <TabsTrigger value={DashboardTabs.taxes}>Taxes</TabsTrigger>
     </UITabsList>
   );
 }
