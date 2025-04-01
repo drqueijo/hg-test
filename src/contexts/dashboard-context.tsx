@@ -1,9 +1,13 @@
-import { createContext, useContext, type ReactNode } from "react";
-import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { useCallback, useMemo } from "react";
-import type { DashboardContextType } from "@/types/dashboard/dashboard.types";
 import { DashboardTabs } from "@/types/dashboard/dashboard.enums";
-import { api } from "@/utils/api";
+import type { DashboardContextType } from "@/types/dashboard/dashboard.types";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  type ReactNode,
+} from "react";
 
 const DashboardContext = createContext<DashboardContextType>(
   {} as DashboardContextType,
@@ -17,7 +21,6 @@ export function DashboardProvider({ children }: DashboardProviderProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  const { data, isLoading, isError } = api.finance.getAllData.useQuery();
 
   const currentTab = useMemo(() => {
     return (
@@ -25,10 +28,27 @@ export function DashboardProvider({ children }: DashboardProviderProps) {
     );
   }, [searchParams]);
 
+  const currentAsset = useMemo(() => {
+    return searchParams.get("asset") ?? "";
+  }, [searchParams]);
+
   const setCurrentTab = useCallback(
     (tab: DashboardTabs) => {
       const params = new URLSearchParams(searchParams.toString());
       params.set("tab", tab);
+
+      const search = params.toString();
+      const url = search ? `${pathname}?${search}` : pathname;
+
+      router.push(url, { scroll: false });
+    },
+    [router, searchParams, pathname],
+  );
+
+  const setCurrentAsset = useCallback(
+    (asset: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set("asset", asset);
 
       const search = params.toString();
       const url = search ? `${pathname}?${search}` : pathname;
@@ -46,13 +66,19 @@ export function DashboardProvider({ children }: DashboardProviderProps) {
     [currentTab, setCurrentTab],
   );
 
+  const currentAssetValue = useMemo(
+    () => ({
+      currentAsset,
+      setCurrentAsset,
+    }),
+    [currentAsset, setCurrentAsset],
+  );
+
   return (
     <DashboardContext.Provider
       value={{
         ...currentTabValue,
-        data,
-        isLoading,
-        isError,
+        ...currentAssetValue,
       }}
     >
       {children}

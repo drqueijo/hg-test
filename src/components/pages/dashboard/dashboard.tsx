@@ -9,6 +9,8 @@ import {
 } from "@/types/dashboard/dashboard.enums";
 import { TabsContent } from "@radix-ui/react-tabs";
 import { QuotationCards } from "./components/quotation-cards/quotation-cards";
+import { FinanceDataProvider } from "@/contexts/finance-data.context";
+import { DataChart } from "./components/data-chart";
 
 export function Dashboard({ className, ...props }: DashboardProps) {
   const { currentTab, setCurrentTab } = useDashboardContext();
@@ -21,10 +23,13 @@ export function Dashboard({ className, ...props }: DashboardProps) {
         <TabsList />
         {DashboardTabsList.map((tab) => (
           <TabsContent key={tab} value={tab}>
-            <QuotationCards dashboardTabKey={tab} />
+            <QuotationCards />
           </TabsContent>
         ))}
       </Tabs>
+      <FinanceDataProvider>
+        <DataChart />
+      </FinanceDataProvider>
     </div>
   );
 }

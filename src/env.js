@@ -8,6 +8,8 @@ export const env = createEnv({
    */
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
+    HG_API_KEY: z.string(),
+    HG_FINANCE_BASE_URL: z.string(),
   },
 
   /**
@@ -30,6 +32,8 @@ export const env = createEnv({
     NEXT_PUBLIC_LOCAL_STORAGE_PREFIX:
       process.env.NEXT_PUBLIC_LOCAL_STORAGE_PREFIX,
     NEXT_PUBLIC_SESSION_DURATION: process.env.NEXT_PUBLIC_SESSION_DURATION,
+    HG_API_KEY: process.env.HG_API_KEY,
+    HG_FINANCE_BASE_URL: process.env.HG_FINANCE_BASE_URL,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

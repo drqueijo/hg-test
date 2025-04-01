@@ -1,11 +1,11 @@
-import { useDashboardContext } from "@/contexts/dashboard-context";
 import type { QuotationCardsProps } from "./quotation-cards.types";
 import { cn } from "@/lib/utils";
 import { useQuotationCard } from "./hooks/use-quotation-card";
 import { Card } from "./components/card";
 
 export function QuotationCards({ className, ...props }: QuotationCardsProps) {
-  const { data, isLoading, isError } = useQuotationCard();
+  const { data, isLoading, isError, isAssetSelected, setCurrentAsset } =
+    useQuotationCard();
 
   return (
     <section
@@ -25,7 +25,8 @@ export function QuotationCards({ className, ...props }: QuotationCardsProps) {
             buy={currency.buy ?? 0}
             sell={currency.sell}
             variation={currency.variation}
-            isSelected={false}
+            isSelected={isAssetSelected(currency.key)}
+            onClick={() => setCurrentAsset(currency.key)}
           />
         ))}
     </section>

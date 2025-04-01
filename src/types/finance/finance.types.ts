@@ -46,4 +46,17 @@ export type FinanceData = {
   };
   execution_time: number;
   from_cache: boolean;
+  timestamp: string;
 };
+
+export type FinanceDataHistory = {
+  timestamp: string;
+  data: FinanceData;
+};
+
+export interface FinanceDataContextType {
+  data?: FinanceData;
+  isLoading: boolean;
+  isError: boolean;
+  dataHistory: FinanceDataHistory[];
+}
