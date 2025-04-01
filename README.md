@@ -6,6 +6,9 @@
 - [Tailwind CSS](https://tailwindcss.com)
 - [tRPC](https://trpc.io)
 
+## Preview
+https://hg-test-taupe.vercel.app/
+
 ## Quick Start
 
 1. Set up environment variables in `.env`:
