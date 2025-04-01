@@ -8,7 +8,6 @@ function Input({
   errors,
   ...props
 }: React.ComponentProps<"input"> & { errors?: string }) {
-  console.log(errors);
   return (
     <div className="flex flex-col gap-1">
       <input
